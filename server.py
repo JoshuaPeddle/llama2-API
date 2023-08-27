@@ -5,8 +5,6 @@ os.environ['WORLD_SIZE'] = '1'
 os.environ['MASTER_ADDR'] = '127.0.0.1'
 os.environ['MASTER_PORT'] = '5005'
 
-import torch.distributed as dist
-dist.init_process_group("nccl")
 from llama import Llama
 
 app = Flask(__name__)

@@ -1,3 +1,14 @@
+# Docker 
+Place models in ./models directory
+
+```bash
+docker run --rm --gpus all -p "5001:5001" -v "$(pwd)/models:/app/models" llama-api
+```
+or 
+```bash
+docker compose up
+```
+
 # Llama 2
 
 We are unlocking the power of large language models. Our latest version of Llama is now accessible to individuals, creators, researchers and businesses of all sizes so that they can experiment, innovate and scale their ideas responsibly. 

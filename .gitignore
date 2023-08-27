@@ -163,3 +163,4 @@ cython_debug/
 # Application specific files
 # ==========================
 models/llama*
+llama/tokenizer.model
