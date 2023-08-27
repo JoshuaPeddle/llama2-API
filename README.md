@@ -1,3 +1,36 @@
+# Chat using postman or curl (or any other http client)
+### curl
+```bash
+curl --location --request POST 'http://localhost:5001/chat' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "dialog": {
+        "role": "user",
+        "content": "Hello. How are you?"
+    },
+    "max_gen_len": "120"
+}'
+```
+### json body
+```json
+{
+    "dialog": {
+        "role": "user",
+        "content": "Hello. How are you?"
+    },
+    "max_gen_len": "120"
+}
+```
+
+This api can be used to chat with the llama chatbot. The chatbot will respond with a message. The message will be in the following format:
+```json
+{
+    "generation": {
+        "content": " Yes, I can write SQL queries and T-SQL stored procedures...",
+        "role": "assistant"
+    }
+}
+```
 # Docker 
 Place models in ./models directory
 
