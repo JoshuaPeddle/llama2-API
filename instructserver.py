@@ -14,7 +14,7 @@ app = Flask(__name__)
 generator = Llama.build(
     ckpt_dir='models/CodeLlama-7b-Instruct/',
     tokenizer_path='codellama/tokenizer.model',
-    max_seq_len=1000,
+    max_seq_len=150,
     max_batch_size=1,
 )
 
