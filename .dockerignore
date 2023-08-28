@@ -189,4 +189,5 @@ cython_debug/
 
 # Application specific files
 # ==========================
-models/llama*
+models/*llama*
+models/*Llama*
