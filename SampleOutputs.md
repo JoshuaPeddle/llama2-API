@@ -14,3 +14,72 @@
         "role": "assistant"
     }
 }
+## CodeLlama-7b
+### Input
+{
+    "prompts": 
+     ["
+  
+     private static async Task<List<CryptoAssetPriceHistory>> ParseAndProcessResponseAsync(HttpResponseMessage response, DateTime? latestDateInDatabase, string assetId) 
+     { 
+        var jsonString = await response.Content.ReadAsStringAsync(); 
+        using var jsonDoc = JsonDocument.Parse(jsonString); 
+        var priceHistories = new List<CryptoAssetPriceHistory>(); 
+        if (jsonDoc.RootElement.TryGetProperty('prices', out var prices)) 
+        { 
+            foreach (var price in prices.EnumerateArray()) 
+            { 
+                var dateUnix = price[0].GetInt64(); 
+                var date = DateTimeOffset.FromUnixTimeMilliseconds(dateUnix).UtcDateTime; 
+                if (latestDateInDatabase.HasValue && date <= latestDateInDatabase.Value) 
+                    continue;
+                var assetPrice = price[1].GetDecimal();
+                
+"]
+,
+"max_gen_len": "300"
+}
+### Model Output
+{    "generation": 
+"
+
+                var assetPriceHistory = new CryptoAssetPriceHistory { AssetId = assetId, Date = date, Price = assetPrice }; 
+                priceHistories.Add(assetPriceHistory); 
+                } 
+            } 
+        return priceHistories; 
+    }      
+        
+    private static async Task<List<CryptoAssetPriceHistory>> GetPriceHistoryAsync(string assetId, DateTime? latestDateInDatabase) 
+    { 
+        var response = await _httpClient.GetAsync($\"https://api.coingecko.com/api/v3/coins/{assetId}/market_chart?vs_currency"
+"
+}
+
+The function it completed, ```ParseAndProcessResponseAsync```, was correct and passed all tests
+
+The function it was starting to write, ```GetPriceHistoryAsync```, actually exists with slightly diffrent variable names.
+### Completed function
+```
+private static async Task<List<CryptoAssetPriceHistory>> ParseAndProcessResponseAsync(HttpResponseMessage response, DateTime? latestDateInDatabase, string assetId) 
+{ 
+    var jsonString = await response.Content.ReadAsStringAsync(); 
+    using var jsonDoc = JsonDocument.Parse(jsonString); 
+    var priceHistories = new List<CryptoAssetPriceHistory>(); 
+    if (jsonDoc.RootElement.TryGetProperty('prices', out var prices)) 
+    { 
+        foreach (var price in prices.EnumerateArray()) 
+        { 
+            var dateUnix = price[0].GetInt64(); 
+            var date = DateTimeOffset.FromUnixTimeMilliseconds(dateUnix).UtcDateTime; 
+            if (latestDateInDatabase.HasValue && date <= latestDateInDatabase.Value) 
+                continue;
+            var assetPrice = price[1].GetDecimal();
+            var assetPriceHistory = new CryptoAssetPriceHistory { AssetId = assetId, Date = date, Price = assetPrice }; 
+            priceHistories.Add(assetPriceHistory); 
+        } 
+    } 
+    return priceHistories; 
+}                  
+
+```

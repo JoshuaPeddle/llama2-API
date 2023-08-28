@@ -12,23 +12,23 @@ app = Flask(__name__)
 
 # Load the model
 generator = Llama.build(
-    ckpt_dir='models/CodeLlama-7b-Instruct/',
+    ckpt_dir='models/CodeLlama-7b',
     tokenizer_path='codellama/tokenizer.model',
-    max_seq_len=1000,
+    max_seq_len=300,
     max_batch_size=1,
 )
 
-@app.route('/instruct', methods=['POST'])
-def instruct():
+@app.route('/codecomplete', methods=['POST'])
+def codecomplete():
     data = request.get_json()
     print(data)
-    dialog = data['dialog']
+    prompts = data['prompts']
     max_gen_len =int(data.get('max_gen_len'))
-    temperature = data.get('temperature', 0.6)
+    temperature = data.get('temperature', 0.2)
     top_p = data.get('top_p', 0.9)
     
-    results = generator.chat_completion(
-        [[dialog]],
+    results = generator.text_completion(
+        prompts,
         max_gen_len=max_gen_len,
         temperature=temperature,
         top_p=top_p
