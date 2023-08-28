@@ -1,3 +1,42 @@
+# Example prompts
+
+## Chat
+```json
+{
+    "dialog": {
+        "role": "user",
+        "content": "What is the meaning of life?"
+    },
+    "max_gen_len": "1000"
+}
+```
+
+## Instruct
+```json
+{
+    "dialog": {
+        "role": "user",
+        "content": "Can you improve this? CREATE FUNCTION [dbo]..."
+    },
+    "max_gen_len": "1000"
+}
+```
+## Codecompletion
+```json
+{
+    "prompts": 
+     ["
+  
+     private static async Task<List<CryptoAssetPriceHistory>> ParseAndProcessResponseAsync(HttpResponseMessage response, DateTime? latestDateInDatabase, string assetId) 
+     { 
+        var jsonString = await response.Content.ReadAsStringAsync(); 
+        using var jsonDoc = JsonDocument.Parse(jsonString);                
+"]
+,
+"max_gen_len": "300"
+}
+```
+
 # Chat using postman or curl (or any other http client)
 ### curl
 ```bash
