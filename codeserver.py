@@ -1,24 +1,25 @@
 from flask import Flask, request, jsonify
 import os
+
 os.environ['RANK'] = '0'
 os.environ['WORLD_SIZE'] = '1'
 os.environ['MASTER_ADDR'] = '127.0.0.1'
 os.environ['MASTER_PORT'] = '5005'
 
-from llama import Llama
+from codellama import Llama
 
 app = Flask(__name__)
 
 # Load the model
 generator = Llama.build(
-    ckpt_dir='models/llama-2-7b-chat/',
-    tokenizer_path='llama/tokenizer.model',
-    max_seq_len=50,
+    ckpt_dir='models/CodeLlama-7b-Instruct/',
+    tokenizer_path='codellama/tokenizer.model',
+    max_seq_len=1000,
     max_batch_size=1,
 )
 
-@app.route('/chat', methods=['POST'])
-def chat():
+@app.route('/instruct', methods=['POST'])
+def instruct():
     data = request.get_json()
     print(data)
     dialog = data['dialog']

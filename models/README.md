@@ -9,6 +9,8 @@ You must request access from facebookresearch to download the models.
 * Llama-2-13b-chat
 * Llama-2-70b-chat
 
+* CodeLlama-7b-Instruct
+
 ### Diffent models are used for diffrent functions
 
 You need one chat model to chat with the bot.
